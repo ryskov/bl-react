@@ -1,0 +1,10 @@
+{
+  "name": "bl-react",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./BL.js",
+  "dependencies": {
+    "react": "^15.2.1",
+    "underscore": "^1.8.3"
+  }
+}
