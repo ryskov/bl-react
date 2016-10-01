@@ -1,5 +1,6 @@
 var CircularDependencyPlugin = require('circular-dependency-plugin');
 var path = require('path');
+var webpack = require('webpack');
 
 module.exports = {
     entry: './src/BL.js',
@@ -27,7 +28,9 @@ module.exports = {
     plugins: [
         new CircularDependencyPlugin({
             failOnError: true
-        })
+        }),
+        new webpack.optimize.OccurrenceOrderPlugin(),
+        new webpack.optimize.UglifyJsPlugin()
     ],
     externals: ['react', 'underscore']
 };
