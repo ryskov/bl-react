@@ -27,5 +27,6 @@ module.exports = {
         new CircularDependencyPlugin({
             failOnError: true
         })
-    ]
+    ],
+    externals: 'react'
 };
