@@ -15,8 +15,6 @@ const BL = {
     TextInput
 };
 
-window._ = _;
-window.React = React;
 window.BL = BL;
 
 export default BL;

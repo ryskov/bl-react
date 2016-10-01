@@ -85,8 +85,6 @@
 	    TextInput: _TextInput2.default
 	};
 
-	window._ = _underscore2.default;
-	window.React = _react2.default;
 	window.BL = BL;
 
 	exports.default = BL;
