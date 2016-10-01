@@ -5,7 +5,9 @@ module.exports = {
     output: {
         path: __dirname,
         filename: 'build/bundle.js',
-        library: 'BL'
+        library: 'BL',
+        libraryTarget: 'umd',
+        umdNamedDefine: true
     },
     module: {
         loaders: [
