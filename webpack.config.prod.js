@@ -29,5 +29,5 @@ module.exports = {
             failOnError: true
         })
     ],
-    externals: /react*$/
+    externals: ['react', 'underscore']
 };
