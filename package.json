@@ -2,9 +2,10 @@
   "name": "bl-react",
   "version": "0.0.1",
   "private": true,
-  "main": "./lib/BL.js",
+  "main": "./build/bundle.js",
   "scripts": {
-    "build": "rm -rf lib && babel src -d lib && cp -r src/styles lib/"
+    "build": "webpack --progress --config webpack.config.prod.js",
+    "start": "webpack-dev-server --progress --config webpack.config.js"
   },
   "dependencies": {
     "react": "^15.2.1",
@@ -12,7 +13,14 @@
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.5",
     "babel-preset-es2015": "^6.16.0",
-    "babel-preset-react": "^6.16.0"
+    "babel-preset-react": "^6.16.0",
+    "css-loader": "^0.25.0",
+    "react-dom": "^15.3.2",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.1"
   }
 }
