@@ -70,19 +70,30 @@ export default class TextInput extends Component {
     }
 
     render() {
+        const 
+        {
+            style,
+            placeholder,
+            width,
+            height,
+            noMargin
+        } = this.props;
+
+        let _style = style || {};
+
+        if (width) _style.width = width;
+        if (height) _style.height = height;
+
+        if (noMargin) _style.margin = '0px';
+        
         return (
             <textarea
-                style={
-                    {
-                        width: this.props.width,
-                        height: this.props.height
-                    }
-                }
+                style={_style}
                 ref="textarea"
-                className="text-input"
+                className="bl-text-input"
                 onFocus={this._onFocus.bind(this)}
                 onBlur={this._onBlur.bind(this)}
-                placeholder={this.props.placeholder ? this.props.placeholder : null}
+                placeholder={placeholder ? placeholder : null}
                 onKeyDown={this._onKeyDown.bind(this) }
                 onKeyUp={this._onKeyUp.bind(this) } />
         );

@@ -76,30 +76,18 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	window._ = _underscore2.default;
-	window.React = _react2.default;
-
-	var Demo = function Demo() {
-	    return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	            _Panel2.default,
-	            { width: '300px' },
-	            'Hello!'
-	        )
-	    );
-	};
-
 	var BL = {
 	    // utils
 	    http: _HTTPHelper2.default,
 
-	    Demo: Demo,
 	    // components
 	    Panel: _Panel2.default,
 	    TextInput: _TextInput2.default
 	};
+
+	window._ = _underscore2.default;
+	window.React = _react2.default;
+	window.BL = BL;
 
 	exports.default = BL;
 
@@ -23043,18 +23031,30 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Panel = function Panel(_ref) {
+	    var noMargin = _ref.noMargin;
 	    var children = _ref.children;
 	    var width = _ref.width;
 	    var height = _ref.height;
+	    var style = _ref.style;
+	    var title = _ref.title;
+
+	    var _style = style || {};
+
+	    if (width) _style.width = width;
+	    if (height) _style.height = height;
+
+	    if (noMargin) _style.margin = '0px';
 
 	    return _react2.default.createElement(
 	        'div',
 	        {
-	            className: 'panel-outer',
-	            style: {
-	                width: width,
-	                height: height
-	            } },
+	            className: 'bl-panel-outer',
+	            style: _style },
+	        title ? _react2.default.createElement(
+	            'div',
+	            { className: 'bl-panel-title' },
+	            title
+	        ) : null,
 	        children
 	    );
 	};
@@ -23096,7 +23096,7 @@
 
 
 	// module
-	exports.push([module.id, ".panel-outer {\r\n  border-radius: 3px;\r\n  box-shadow: 3px 3px 2px -2px rgba(0,0,0,0.2);\r\n  background-color: rgba(0, 0, 0, 0.03);\r\n  margin-bottom: 10px;\r\n  padding: 5px;\r\n}", ""]);
+	exports.push([module.id, ".bl-panel-outer {\r\n  border-radius: 3px;\r\n  box-shadow: 3px 3px 2px -2px rgba(0,0,0,0.2);\r\n  background-color: rgba(0, 0, 0, 0.03);\r\n  margin-bottom: 10px;\r\n  padding: 5px 10px;\r\n  box-sizing: border-box;\r\n  color: #555;\r\n  min-height: 50px;\r\n}\r\n\r\n.bl-panel-title {\r\n  margin-bottom: 5px;\r\n  color: #aaa;\r\n  text-align: right;\r\n}", ""]);
 
 	// exports
 
@@ -23514,16 +23514,28 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var _props = this.props;
+	            var style = _props.style;
+	            var placeholder = _props.placeholder;
+	            var width = _props.width;
+	            var height = _props.height;
+	            var noMargin = _props.noMargin;
+
+
+	            var _style = style || {};
+
+	            if (width) _style.width = width;
+	            if (height) _style.height = height;
+
+	            if (noMargin) _style.margin = '0px';
+
 	            return _react2.default.createElement('textarea', {
-	                style: {
-	                    width: this.props.width,
-	                    height: this.props.height
-	                },
+	                style: _style,
 	                ref: 'textarea',
-	                className: 'text-input',
+	                className: 'bl-text-input',
 	                onFocus: this._onFocus.bind(this),
 	                onBlur: this._onBlur.bind(this),
-	                placeholder: this.props.placeholder ? this.props.placeholder : null,
+	                placeholder: placeholder ? placeholder : null,
 	                onKeyDown: this._onKeyDown.bind(this),
 	                onKeyUp: this._onKeyUp.bind(this) });
 	        }
@@ -23576,7 +23588,7 @@
 
 
 	// module
-	exports.push([module.id, ".text-input {\r\n  border-radius: 3px;\r\n  box-shadow: 3px 3px 2px -2px rgba(0,0,0,0.2);\r\n  text-align: center;\r\n  resize: none;\r\n  border: none;\r\n  background-color: rgba(0, 0, 0, 0.03);\r\n  padding: 10px;\r\n  font-family: helvetica;\r\n  white-space: pre-wrap;\r\n}\r\n\r\n.text-input:focus {\r\n  padding-bottom: 9px;\r\n  text-align: left;\r\n  border-bottom: 1px solid #F8FFA8;\r\n  box-shadow: 4px 4px 2px -2px rgba(0,0,0,0.2);\r\n  outline: none;\r\n}", ""]);
+	exports.push([module.id, ".bl-text-input {\r\n  border-radius: 3px;\r\n  box-shadow: 3px 3px 2px -2px rgba(0,0,0,0.2);\r\n  text-align: center;\r\n  resize: none;\r\n  border: none;\r\n  background-color: rgba(0, 0, 0, 0.03);\r\n  padding: 10px;\r\n  font-family: helvetica;\r\n  white-space: pre-wrap;\r\n  min-height: 20px;\r\n  margin-bottom: 10px;\r\n}\r\n\r\n.bl-text-input:focus {\r\n  padding-bottom: 9px;\r\n  text-align: left;\r\n  border-bottom: 1px solid #F8FFA8;\r\n  box-shadow: 4px 4px 2px -2px rgba(0,0,0,0.2);\r\n  outline: none;\r\n}", ""]);
 
 	// exports
 

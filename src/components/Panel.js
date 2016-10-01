@@ -1,14 +1,22 @@
 import React from 'react';
 import './../styles/Panel.css';
 
-const Panel = ({ children, width, height}) => {
+const Panel = ({ noMargin, children, width, height, style, title}) => {
+    let _style = style || {};
+
+    if (width) _style.width = width;
+    if (height) _style.height = height;
+    
+    if (noMargin) _style.margin = '0px';
+
     return (
         <div
-            className="panel-outer" 
-            style={{
-                width,
-                height
-            }} >
+            className="bl-panel-outer" 
+            style={_style} >
+            { title ? 
+                <div className="bl-panel-title">{title}</div> 
+                : null
+            }
             {children}
         </div>
     )  

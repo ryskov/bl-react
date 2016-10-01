@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom';
 
-import BL from './src/BL';
+import Demo from './src/Demo';
 
-window.onload = function () { ReactDOM.render(<BL.Demo/>, document.getElementById('root')) }
+window.onload = function () { ReactDOM.render(<Demo/>, document.getElementById('root')) }
