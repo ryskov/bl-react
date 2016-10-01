@@ -7,7 +7,8 @@ module.exports = {
         path: __dirname,
         filename: 'build/bundle.js',
         library: 'BL',
-        libraryTarget: 'commonjs2'
+        libraryTarget: 'umd',
+        umdNamedDefine: true
     },
     module: {
         loaders: [
@@ -28,5 +29,5 @@ module.exports = {
             failOnError: true
         })
     ],
-    externals: 'react'
+    externals: /react*$/
 };
