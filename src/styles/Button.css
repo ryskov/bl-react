@@ -1,0 +1,47 @@
+.bl-button-outer {
+    display: inline-block;
+    margin: 10px 5px;
+    padding: 3px 3px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    letter-spacing: 1px;
+    font-variant: all-small-caps;
+    height: 27px;
+    line-height: 17px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.bl-button-outer:hover {
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 4px 4px;
+}
+
+.bl-button-text {
+    margin: 0px 5px;
+}
+
+.bl-disabled {
+    opacity: 0.8;
+}
+
+.bl-disabled:hover {
+    cursor: default;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    padding: 3px 3px;
+}
+
+.bl-danger {
+    background-color: #F7B0B0;
+    color: #555;
+}
+
+.bl-success {
+    background-color: #D4F7B0;
+    color: #555;
+}
+
+.bl-primary {
+    background-color: rgba(0, 0, 0, 0.03);
+    color: #555;
+}

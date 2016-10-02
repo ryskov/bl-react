@@ -2,9 +2,11 @@ import _ from 'underscore';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import HTTPHelper from './utils/HTTPHelper';
+
 import Panel from './components/Panel';
 import TextInput from './components/TextInput';
-import HTTPHelper from './utils/HTTPHelper';
+import Button from './components/Button';
 
 const BL = {
     // utils
@@ -12,9 +14,11 @@ const BL = {
     
     // components
     Panel,
-    TextInput
+    TextInput,
+    Button
 };
 
+//window.React = React;
 window.BL = BL;
 
 export default BL;

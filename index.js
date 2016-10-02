@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom';
+import React from 'react';
 
 import Demo from './src/Demo';
 
-window.onload = function () { ReactDOM.render(<Demo/>, document.getElementById('root')) }
+ReactDOM.render(<Demo />, document.getElementById("root"));

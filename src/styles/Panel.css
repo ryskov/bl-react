@@ -6,11 +6,16 @@
   padding: 5px 10px;
   box-sizing: border-box;
   color: #555;
-  min-height: 50px;
+  /*min-height: 50px;*/
+}
+
+.bl-panel-content {
 }
 
 .bl-panel-title {
   margin-bottom: 5px;
   color: #aaa;
   text-align: right;
+  font-variant: all-small-caps;
+  letter-spacing: 1px;
 }

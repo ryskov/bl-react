@@ -1,0 +1,73 @@
+.bl-panel-outer {
+  border-radius: 3px;
+  box-shadow: 3px 3px 2px -2px rgba(0,0,0,0.2);
+  background-color: rgba(0, 0, 0, 0.03);
+  margin-bottom: 10px;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  color: #555;
+  min-height: 50px;
+}
+
+.bl-panel-title {
+  margin-bottom: 5px;
+  color: #aaa;
+  text-align: right;
+}.bl-text-input {
+  border-radius: 3px;
+  box-shadow: 3px 3px 2px -2px rgba(0,0,0,0.2);
+  text-align: center;
+  resize: none;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.03);
+  padding: 10px;
+  font-family: helvetica;
+  white-space: pre-wrap;
+  min-height: 20px;
+  margin-bottom: 10px;
+}
+
+.bl-text-input:focus {
+  padding-bottom: 9px;
+  text-align: left;
+  border-bottom: 1px solid #F8FFA8;
+  box-shadow: 4px 4px 2px -2px rgba(0,0,0,0.2);
+  outline: none;
+}.bl-button-outer {
+    display: inline-block;
+    margin: 10px 5px;
+    padding: 5px 10px;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.bl-button-outer:hover {
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 4px 9px;
+}
+
+.bl-disabled {
+    opacity: 0.8;
+}
+
+.bl-disabled:hover {
+    cursor: default;
+    border: none;
+    padding: 5px 10px;
+}
+
+.bl-danger {
+    background-color: #F7B0B0;
+    color: #555;
+}
+
+.bl-success {
+    background-color: #D4F7B0;
+    color: #555;
+}
+
+.bl-primary {
+    background-color: rgba(0, 0, 0, 0.03);
+    color: #555;
+}

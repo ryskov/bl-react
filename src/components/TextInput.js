@@ -76,7 +76,8 @@ export default class TextInput extends Component {
             placeholder,
             width,
             height,
-            noMargin
+            noMargin,
+            disabled
         } = this.props;
 
         let _style = style || {};
@@ -88,6 +89,7 @@ export default class TextInput extends Component {
         
         return (
             <textarea
+                disabled={disabled}
                 style={_style}
                 ref="textarea"
                 className="bl-text-input"

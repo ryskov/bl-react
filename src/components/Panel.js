@@ -1,7 +1,8 @@
 import React from 'react';
 import './../styles/Panel.css';
+import {Icon} from 'react-fa';
 
-const Panel = ({ noMargin, children, width, height, style, title}) => {
+const Panel = ({ noMargin, children, width, height, style, title, iconProps}) => {
     let _style = style || {};
 
     if (width) _style.width = width;
@@ -13,11 +14,13 @@ const Panel = ({ noMargin, children, width, height, style, title}) => {
         <div
             className="bl-panel-outer" 
             style={_style} >
-            { title ? 
-                <div className="bl-panel-title">{title}</div> 
+            { title || iconProps ? 
+                <div className="bl-panel-title">{ iconProps ? <Icon {...iconProps} /> : null} {title}</div> 
                 : null
             }
-            {children}
+            <div className="bl-panel-content">
+                {children}
+            </div>
         </div>
     )  
 };
