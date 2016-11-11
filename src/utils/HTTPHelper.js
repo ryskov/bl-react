@@ -7,7 +7,7 @@ export default class HTTPHelper {
         //return window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
     }
 
-    static post(uri, data, baseUrl) {
+    static post(uri, data, baseUrl, headers) {
         return new Promise((resolve, reject) => {
             baseUrl = baseUrl || this.getUrl();
             
@@ -30,11 +30,16 @@ export default class HTTPHelper {
 
             xmlHttp.open("POST", baseUrl + uri, true); // true for asynchronous 
             xmlHttp.setRequestHeader("Content-Type", "application/json");
+
+            for (let key in headers) {
+                xmlHttp.setRequestHeader(key, headers[key]);
+            }
+
             xmlHttp.send(JSON.stringify(data));
         });
     }
 
-    static get(uri, baseUrl) {
+    static get(uri, baseUrl, headers) {
         return new Promise((resolve, reject) => {
             baseUrl = baseUrl || this.getUrl();
 
@@ -56,6 +61,11 @@ export default class HTTPHelper {
             }
 
             xmlHttp.open("GET", baseUrl + uri, true); // true for asynchronous 
+
+            for (let key in headers) {
+                xmlHttp.setRequestHeader(key, headers[key]);
+            }
+            
             xmlHttp.send(null);
         });
     }
