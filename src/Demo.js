@@ -90,7 +90,8 @@ const Demo = () => {
                     blStyle: 'enum \'primary\', \'success\', \'danger\'',
                     disabled: 'bool',
                     onClick: 'function',
-                    iconProps: 'object'
+                    iconProps: 'object',
+                    label: 'string'
                 }}
                 example={
                     <div>
