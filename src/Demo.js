@@ -29,11 +29,11 @@ const PropTable = ({ propObject }) => {
 
 const DemoView = ({ title, propObject, example }) => {
     return (
-        <BL.Panel width={DEMO_PANEL_WIDTH} title={title} iconProps={{name: 'cube'}}>
-            <BL.Panel title="Properties" iconProps={{name: 'cog'}}>
+        <BL.Panel width={DEMO_PANEL_WIDTH} title={title} icon="cube">
+            <BL.Panel title="Properties" icon="cog">
                 <PropTable propObject={propObject} />
             </BL.Panel>
-            <BL.Panel title="Example" iconProps={{name: 'code'}}>
+            <BL.Panel title="Example" icon="code">
                 {example}
             </BL.Panel>
         </BL.Panel>
@@ -51,6 +51,7 @@ const Demo = () => {
                     height: 'string',
                     style: 'object',
                     title: 'string',
+                    icon: "string",
                     iconProps: 'object'
                 }} 
                 example={
@@ -61,17 +62,17 @@ const Demo = () => {
                         <BL.Panel title="Info" width="100%">
                             Panel with title
                         </BL.Panel>
-                        <BL.Panel iconProps={{name: 'exclamation-circle'}} width="100%">
+                        <BL.Panel icon="exclamation-circle" width="100%">
                             Panel with icon
                         </BL.Panel>
-                        <BL.Panel iconProps={{name: 'comments'}} title="Message" width="100%">
+                        <BL.Panel icon="comments" title="Message" width="100%">
                             Panel with icon and title
                         </BL.Panel>
                     </div>
                 } />
 
             <DemoView
-                title="TextInput"
+                title="TextArea"
                 propObject={{
                     disabled: 'bool',
                     noMargin: 'bool',
@@ -82,7 +83,7 @@ const Demo = () => {
                     style: 'object'
                 }}
                 example={
-                    <BL.TextInput width="100%" placeholder={'Type here\n...'} />
+                    <BL.TextArea width="100%" placeholder={'Type here\n...'} />
                 } />
             <DemoView 
                 title="Button"
@@ -90,6 +91,7 @@ const Demo = () => {
                     blStyle: 'enum \'primary\', \'success\', \'danger\'',
                     disabled: 'bool',
                     onClick: 'function',
+                    icon: 'string',
                     iconProps: 'object',
                     label: 'string'
                 }}
@@ -109,26 +111,26 @@ const Demo = () => {
                         </BL.Panel>
                         <BL.Panel title="Icon Buttons">
                             <div>
-                                <BL.Button iconProps={{name: 'save'}} blStyle="success" />
-                                <BL.Button iconProps={{name: 'close'}} blStyle="danger" />
-                                <BL.Button iconProps={{name: 'user'}} blStyle="primary" />
+                                <BL.Button icon="save" blStyle="success" />
+                                <BL.Button icon="close" blStyle="danger" />
+                                <BL.Button icon="user" blStyle="primary" />
                             </div>
                             <div>
-                                <BL.Button iconProps={{name: 'save'}} disabled blStyle="success" />
-                                <BL.Button iconProps={{name: 'close'}} disabled blStyle="danger" />
-                                <BL.Button iconProps={{name: 'user'}} disabled blStyle="primary" />
+                                <BL.Button icon="save" disabled blStyle="success" />
+                                <BL.Button icon="close" disabled blStyle="danger" />
+                                <BL.Button icon="user" disabled blStyle="primary" />
                             </div>
                         </BL.Panel>
                         <BL.Panel title="Icon+Text Buttons">
                             <div>
-                                <BL.Button label="Save" iconProps={{name: 'save'}} blStyle="success" />
-                                <BL.Button label="Delete" iconProps={{name: 'close'}} blStyle="danger" />
-                                <BL.Button label="Profile" iconProps={{name: 'user'}} blStyle="primary" />
+                                <BL.Button icon="save" label="Save" blStyle="success" />
+                                <BL.Button icon="close" label="Delete" blStyle="danger" />
+                                <BL.Button icon="user" label="Profile" blStyle="primary" />
                             </div>
                             <div>
-                                <BL.Button label="Save" iconProps={{name: 'save'}} disabled blStyle="success" />
-                                <BL.Button label="Delete" iconProps={{name: 'close'}} disabled blStyle="danger" />
-                                <BL.Button label="Profile" iconProps={{name: 'user'}} disabled blStyle="primary" />
+                                <BL.Button icon="save" label="Save" disabled blStyle="success" />
+                                <BL.Button icon="close" label="Delete" disabled blStyle="danger" />
+                                <BL.Button icon="user" label="Profile" disabled blStyle="primary" />
                             </div>
                         </BL.Panel>
                     </div>

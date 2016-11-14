@@ -2,7 +2,7 @@ import React from 'react';
 import './../styles/Button.css';
 import {Icon} from 'react-fa';
 
-const Button = ({ style, label, noMargin, blStyle, disabled, iconProps }) => {
+const Button = ({ style, label, noMargin, blStyle, disabled, icon, iconProps, onClick }) => {
     let bClass = null;
 
     switch (blStyle) {
@@ -23,12 +23,15 @@ const Button = ({ style, label, noMargin, blStyle, disabled, iconProps }) => {
     if (disabled) bClass += " bl-disabled";
 
     let _style = style || {};
+    let _iconProps = iconProps || {};
 
     if (noMargin) _style.margin = '0px';
 
+    if (icon && !_iconProps.name) _iconProps.name = icon;
+
     return (
-        <div style={_style} className={bClass}>
-            <span className="bl-button-text">{label ? label : null} { iconProps ? <Icon {...iconProps} /> : null } </span>
+        <div style={_style} className={bClass} onClick={onClick}>
+            <span className="bl-button-text">{label ? label : null} { iconProps || icon ? <Icon {..._iconProps} /> : null } </span>
         </div>
     );
 };
