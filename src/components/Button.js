@@ -1,8 +1,8 @@
 import React from 'react';
-import './../styles/Button.css';
+import './../styles/Style.css';
 import {Icon} from 'react-fa';
 
-const Button = ({ style, label, noMargin, blStyle, disabled, iconProps }) => {
+const Button = ({ style, width, height, label, noMargin, blStyle, disabled, iconProps }) => {
     let bClass = null;
 
     switch (blStyle) {
@@ -25,10 +25,14 @@ const Button = ({ style, label, noMargin, blStyle, disabled, iconProps }) => {
     let _style = style || {};
 
     if (noMargin) _style.margin = '0px';
+    if (width) _style.width = width;
+
+    if (height) _style.lineHeight = height;
+    
 
     return (
         <div style={_style} className={bClass}>
-            <span className="bl-button-text">{label ? label : null} { iconProps ? <Icon {...iconProps} /> : null } </span>
+            <span className="bl-button-text bl-label">{label ? label : null} { iconProps ? <Icon {...iconProps} /> : null } </span>
         </div>
     );
 };

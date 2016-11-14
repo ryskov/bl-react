@@ -132,6 +132,24 @@ const Demo = () => {
                         </BL.Panel>
                     </div>
                 } />
+            <DemoView 
+                title="ComponentGroup"
+                propObject={{}}
+                example={<div>
+                    <BL.ComponentGroup width="100%" direction="vertical">
+                        <BL.Panel title="Component Group">
+                            Hallo
+                        </BL.Panel>
+                        <BL.TextInput placeholder={'TextInput attached to a panel!'} />
+                        <BL.ComponentGroup height="50px" direction="horizontal">
+                            <BL.TextInput width="70%" />
+                            <BL.Button width="30%" blStyle="success" label="Save" />
+                            <BL.Button width="30%" blStyle="success" label="Save" />
+                        </BL.ComponentGroup>
+                    </BL.ComponentGroup>
+                    
+                    </div>
+                } />
         </div>
     );
 };

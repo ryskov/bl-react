@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './../styles/TextInput.css';
+import './../styles/Style.css';
 
 export default class TextInput extends Component {
     constructor(props) {
@@ -92,7 +92,7 @@ export default class TextInput extends Component {
                 disabled={disabled}
                 style={_style}
                 ref="textarea"
-                className="bl-text-input"
+                className="bl-text-input bl-outer-element"
                 onFocus={this._onFocus.bind(this)}
                 onBlur={this._onBlur.bind(this)}
                 placeholder={placeholder ? placeholder : null}

@@ -7,6 +7,7 @@ import HTTPHelper from './utils/HTTPHelper';
 import Panel from './components/Panel';
 import TextInput from './components/TextInput';
 import Button from './components/Button';
+import ComponentGroup from './components/ComponentGroup';
 
 const BL = {
     // utils
@@ -15,7 +16,8 @@ const BL = {
     // components
     Panel,
     TextInput,
-    Button
+    Button,
+    ComponentGroup
 };
 
 //window.React = React;

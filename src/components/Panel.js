@@ -1,5 +1,5 @@
 import React from 'react';
-import './../styles/Panel.css';
+import './../styles/Style.css';
 import {Icon} from 'react-fa';
 
 const Panel = ({ noMargin, children, width, height, style, title, iconProps}) => {
@@ -12,10 +12,10 @@ const Panel = ({ noMargin, children, width, height, style, title, iconProps}) =>
 
     return (
         <div
-            className="bl-panel-outer" 
+            className="bl-panel-outer bl-outer-element" 
             style={_style} >
             { title || iconProps ? 
-                <div className="bl-panel-title">{ iconProps ? <Icon {...iconProps} /> : null} {title}</div> 
+                <div className="bl-panel-title bl-label">{ iconProps ? <Icon {...iconProps} /> : null} {title}</div> 
                 : null
             }
             <div className="bl-panel-content">
