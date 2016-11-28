@@ -20,7 +20,7 @@ export default class HTTPHelper {
                             resolve(JSON.parse(xmlHttp.responseText));
                         }
                         catch (e) {
-                            resolve(xmlhttp.responseText);
+                            resolve(xmlHttp.responseText);
                         }
                     }
                     else 
