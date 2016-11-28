@@ -7,6 +7,38 @@ export default class HTTPHelper {
         //return window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
     }
 
+    static put(uri, data, baseUrl, headers) {
+        return new Promise((resolve, reject) => {
+            baseUrl = baseUrl || this.getUrl();
+
+            var xmlHttp = new XMLHttpRequest();
+
+            xmlHttp.onreadystatechange = () => {
+                if (xmlHttp.readyState === 4) {
+                    if (xmlHttp.status === 201) {
+                        try {
+                            resolve(JSON.parse(xmlHttp.responseText));
+                        }
+                        catch (e) {
+                            resolve(xmlhttp.responseText);
+                        }
+                    }
+                    else 
+                        reject(xmlHttp.status);
+                }
+            };
+
+            xmlHttp.open("PUT", baseUrl + uri, true);
+            xmlHttp.setRequestHeader("Content-Type", "application/json");
+
+            for (let key in headers) {
+                xmlHttp.setRequestHeader(key, headers[key]);
+            }
+
+            xmlHttp.send(JSON.stringify(data));
+        });
+    }
+
     static post(uri, data, baseUrl, headers) {
         return new Promise((resolve, reject) => {
             baseUrl = baseUrl || this.getUrl();
