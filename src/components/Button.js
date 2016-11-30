@@ -4,6 +4,7 @@ import {Icon} from 'react-fa';
 
 const Button = ({ style, label, noMargin, blStyle, disabled, icon, iconProps, onClick }) => {
     let bClass = null;
+    let noop = () => {};
 
     switch (blStyle) {
         case 'success':
@@ -30,7 +31,7 @@ const Button = ({ style, label, noMargin, blStyle, disabled, icon, iconProps, on
     if (icon && !_iconProps.name) _iconProps.name = icon;
 
     return (
-        <div style={_style} className={bClass} onClick={onClick}>
+        <div style={_style} className={bClass} onClick={disabled ? noop : onClick}>
             <span className="bl-button-text">{label ? label : null} { iconProps || icon ? <Icon {..._iconProps} /> : null } </span>
         </div>
     );
