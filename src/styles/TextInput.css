@@ -32,3 +32,15 @@
   font-variant: all-small-caps;
   letter-spacing: 1px;
 }
+
+.bl-text-input.bl-danger {
+  /* background-color: #F7B0B0; */
+  border-bottom: 1px solid #F7B0B0;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.bl-text-input.bl-success {
+  /* background-color: #D4F7B0; */
+  border-bottom: 1px solid #D4F7B0;
+  background-color: rgba(255, 255, 255, 0.8);
+}

@@ -75,6 +75,7 @@ export default class TextInput extends Component {
         const 
         {
             style,
+            blStyle,
             placeholder,
             width,
             height,
@@ -82,6 +83,19 @@ export default class TextInput extends Component {
             value,
             disabled
         } = this.props;
+
+        let tClass = null;
+        switch (blStyle) {
+            case 'success':
+                tClass = 'bl-success';
+                break;
+            case 'danger':
+                tClass = 'bl-danger';
+                break;
+            default:
+                tClass = '';
+                break;
+        }
 
         let _style = style || {};
 
@@ -98,7 +112,7 @@ export default class TextInput extends Component {
                 disabled={disabled}
                 style={_style}
                 ref="textinput"
-                className="bl-text-input"
+                className={`bl-text-input ${tClass}`}
                 onFocus={this._onFocus.bind(this)}
                 value={value}
                 onBlur={this._onBlur.bind(this)}
