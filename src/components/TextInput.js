@@ -92,6 +92,9 @@ export default class TextInput extends Component {
             case 'danger':
                 tClass = 'bl-danger';
                 break;
+            case 'primary':
+                tClass = 'bl-primary';
+                break;
             default:
                 tClass = '';
                 break;
