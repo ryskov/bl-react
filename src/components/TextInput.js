@@ -20,6 +20,10 @@ export default class TextInput extends Component {
         return this.refs.textinput.value;
     }
 
+    set value(val) {
+        this.refs.textinput.value = val;
+    }
+
     _onFocus() {
         if (this.props.placeholder) {
             this.refs.textinput.placeholder = "";
