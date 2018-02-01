@@ -3,8 +3,8 @@
 export default class HTTPHelper {
 
     static getUrl() {
-        return window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + (parseInt(window.location.port, 10) + 1) : '');
-        //return window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+        // return window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + (parseInt(window.location.port, 10) + 1) : '');
+        return window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
     }
 
     static put(uri, data, baseUrl, headers) {
@@ -47,7 +47,7 @@ export default class HTTPHelper {
 
             xmlHttp.onreadystatechange = () => {
                 if (xmlHttp.readyState === 4) {
-                    if (xmlHttp.status === 201) {
+                    if ([200, 201].indexOf(xmlHttp.status) > -1) {
                         try {
                             resolve(JSON.parse(xmlHttp.responseText));
                         }
