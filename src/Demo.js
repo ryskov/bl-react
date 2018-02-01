@@ -100,7 +100,11 @@ const Demo = () => {
                                 style: 'object'
                             }}
                             example={
-                                <BL.TextInput width="100%" placeholder={'Type here...'} />
+                                <div>
+                                    <BL.TextInput width="100%" title="With title" placeholder={'Type here...'} />
+                                    <BL.TextInput width="100%" title="Another one" placeholder={'Type here...'} />
+                                    <BL.TextInput width="100%" placeholder={'Type here...'} />
+                                </div>
                             } />
                     </td>
                     <td style={{verticalAlign: 'top'}}>

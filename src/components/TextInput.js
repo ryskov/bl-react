@@ -67,7 +67,7 @@ export default class TextInput extends Component {
         return this.refs.textinput.focus();
     }
 
-    render() {
+    _renderInput() {
         const 
         {
             style,
@@ -100,5 +100,38 @@ export default class TextInput extends Component {
                 onKeyDown={this._onKeyDown.bind(this) }
                 onKeyUp={this._onKeyUp.bind(this) } />
         );
+    }
+
+    render() {
+        const 
+        {
+            style,
+            placeholder,
+            width,
+            height,
+            noMargin,
+            disabled,
+            title
+        } = this.props;
+
+        let _style = style || {};
+
+        if (width) _style.width = width;
+        if (height) _style.height = height;
+
+        if (noMargin) _style.margin = '0px';
+
+        _style.textAlign = this.state.textAlign;
+
+        if (title) {
+            return (
+                <div>
+                    <div className="bl-text-input-title">{title}</div>
+                    {this._renderInput()}
+                </div>
+            );
+        }
+
+        return this._renderInput();
     }
 }
