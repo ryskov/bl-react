@@ -88,6 +88,20 @@ const Demo = () => {
                             example={
                                 <BL.TextArea width="100%" placeholder={'Type here\n...'} />
                             } />
+                        <DemoView
+                            title="TextInput"
+                            propObject={{
+                                disabled: 'bool',
+                                noMargin: 'bool',
+                                onSubmit: 'function',
+                                placeholder: 'string',
+                                width: 'string',
+                                height: 'string',
+                                style: 'object'
+                            }}
+                            example={
+                                <BL.TextInput width="100%" placeholder={'Type here...'} />
+                            } />
                     </td>
                     <td style={{verticalAlign: 'top'}}>
                         <DemoView

@@ -6,6 +6,7 @@ import HTTPHelper from './utils/HTTPHelper';
 
 import Panel from './components/Panel';
 import TextArea from './components/TextArea';
+import TextInput from './components/TextInput';
 import Button from './components/Button';
 
 const BL = {
@@ -15,6 +16,7 @@ const BL = {
     // components
     Panel,
     TextArea,
+    TextInput,
     Button
 };
 
