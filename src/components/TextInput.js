@@ -36,7 +36,7 @@ export default class TextInput extends Component {
         }
 
         this.setState({
-            textAlign: this.refs.textinput.value ? 'left' : 'center'
+            textAlign: 'center'
         });
     }
 
@@ -75,6 +75,7 @@ export default class TextInput extends Component {
             width,
             height,
             noMargin,
+            value,
             disabled
         } = this.props;
 
@@ -95,6 +96,7 @@ export default class TextInput extends Component {
                 ref="textinput"
                 className="bl-text-input"
                 onFocus={this._onFocus.bind(this)}
+                value={value}
                 onBlur={this._onBlur.bind(this)}
                 placeholder={placeholder ? placeholder : null}
                 onKeyDown={this._onKeyDown.bind(this) }

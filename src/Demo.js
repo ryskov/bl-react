@@ -102,7 +102,7 @@ const Demo = () => {
                             example={
                                 <div>
                                     <BL.TextInput width="100%" title="With title" placeholder={'Type here...'} />
-                                    <BL.TextInput width="100%" title="Another one" placeholder={'Type here...'} />
+                                    <BL.TextInput width="100%" title="Another disabled one" disabled={true} placeholder={'Type here...'} />
                                     <BL.TextInput width="100%" placeholder={'Type here...'} />
                                 </div>
                             } />
