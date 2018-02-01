@@ -44,3 +44,8 @@
   border-bottom: 1px solid #D4F7B0;
   background-color: rgba(255, 255, 255, 0.8);
 }
+
+.bl-text-input.bl-primary {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid #555;
+} 

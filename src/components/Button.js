@@ -14,8 +14,10 @@ const Button = ({ style, label, noMargin, blStyle, disabled, icon, iconProps, on
             bClass = 'bl-danger';
             break;
         case 'primary':
-        default:
             bClass = 'bl-primary';
+            break;
+        default:
+            bClass = "";
             break;
     }
 
