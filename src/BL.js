@@ -7,6 +7,7 @@ import HTTPHelper from './utils/HTTPHelper';
 import Panel from './components/Panel';
 import TextArea from './components/TextArea';
 import TextInput from './components/TextInput';
+import Dropdown from './components/Dropdown';
 import Button from './components/Button';
 
 const BL = {
@@ -17,6 +18,7 @@ const BL = {
     Panel,
     TextArea,
     TextInput,
+    Dropdown,
     Button
 };
 

@@ -158,6 +158,13 @@ const Demo = () => {
                                     </BL.Panel>
                                 </div>
                             } />
+                            <DemoView 
+                                title="Dropdown"
+                                propObject={{}}
+                                example={
+                                    <BL.Dropdown title="Test" actions={[{ label: 'Option 1', value: '1'}, { label: 'Option 2', value: '2' }]} width="100%" />
+                                }
+                            />
                     </td>
                 </tr>
             </table>
