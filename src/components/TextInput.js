@@ -71,6 +71,13 @@ export default class TextInput extends Component {
         return this.refs.textinput.focus();
     }
 
+    componentDidMount() {
+        if (this.props.value) {
+            // set initial value
+            this.value = this.props.value;
+        }
+    }
+
     _renderInput() {
         const 
         {
@@ -118,7 +125,6 @@ export default class TextInput extends Component {
                 ref="textinput"
                 className={`bl-text-input ${tClass}`}
                 onFocus={this._onFocus.bind(this)}
-                value={value}
                 onBlur={this._onBlur.bind(this)}
                 placeholder={placeholder ? placeholder : null}
                 onKeyDown={this._onKeyDown.bind(this) }
