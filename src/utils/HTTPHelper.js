@@ -1,4 +1,11 @@
 // Because i am very anti-jquery
+let _authToken = null;
+
+const _getCompletedHeaders = (headers) => {
+    if (!_authToken) return headers;
+
+    return Object.assign({ Authorization: 'Bearer ' + _authToken }, headers);
+};
 
 export default class HTTPHelper {
 
@@ -7,7 +14,13 @@ export default class HTTPHelper {
         return window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
     }
 
+    static setAuthToken(authToken) {
+        _authToken = authToken;
+    }
+
     static put(uri, data, baseUrl, headers) {
+        headers = _getCompletedHeaders(headers);
+
         return new Promise((resolve, reject) => {
             baseUrl = baseUrl || this.getUrl();
 
@@ -40,6 +53,8 @@ export default class HTTPHelper {
     }
 
     static post(uri, data, baseUrl, headers) {
+        headers = _getCompletedHeaders(headers);
+
         return new Promise((resolve, reject) => {
             baseUrl = baseUrl || this.getUrl();
             
@@ -72,6 +87,8 @@ export default class HTTPHelper {
     }
 
     static get(uri, baseUrl, headers) {
+        headers = _getCompletedHeaders(headers);
+
         return new Promise((resolve, reject) => {
             baseUrl = baseUrl || this.getUrl();
 
