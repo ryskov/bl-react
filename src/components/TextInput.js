@@ -81,7 +81,8 @@ export default class TextInput extends Component {
             height,
             noMargin,
             value,
-            disabled
+            disabled,
+            type = 'text'
         } = this.props;
 
         let tClass = null;
@@ -111,7 +112,7 @@ export default class TextInput extends Component {
 
         return (
             <input 
-                type="text"
+                type={type}
                 disabled={disabled}
                 style={_style}
                 ref="textinput"
