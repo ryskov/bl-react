@@ -78,6 +78,12 @@ export default class TextInput extends Component {
         }
     }
 
+    componentWillReceiveProps(newProps) {
+        if (newProps.value) {
+            this.value = newProps.value;
+        }
+    }
+
     _renderInput() {
         const 
         {
