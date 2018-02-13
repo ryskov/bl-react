@@ -9,6 +9,7 @@ import TextArea from './components/TextArea';
 import TextInput from './components/TextInput';
 import Dropdown from './components/Dropdown';
 import Button from './components/Button';
+import DataList from './components/DataList';
 
 const BL = {
     // utils
@@ -19,7 +20,8 @@ const BL = {
     TextArea,
     TextInput,
     Dropdown,
-    Button
+    Button,
+    DataList
 };
 
 //window.React = React;

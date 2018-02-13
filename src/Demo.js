@@ -7,6 +7,18 @@ const DEMO_PANEL_WIDTH = '420px';
 
 const PropTable = ({ propObject }) => {
     return (
+        <BL.DataList 
+            columns={[
+                { title: 'Property Name', width: '50%', contentStyle: { fontFamily: 'Courier' }, headerAlign: 'left' },
+                { title: 'Property Type', width: '50%', contentStyle: { fontFamily: 'Courier' }, headerAlign: 'left' },
+            ]} 
+            data={_.map(propObject, (propType, propName) => {
+                return [ propName, propType ];
+            })}
+            />
+    );
+
+    return (
         <table cellSpacing="0" cellPadding="2" style={{ marginTop: '10px', marginBottom: '10px', width: '100%', color: 'inherit' }}>
 
             <tbody>
@@ -163,6 +175,51 @@ const Demo = () => {
                                 propObject={{}}
                                 example={
                                     <BL.Dropdown title="Test" actions={[{ label: 'Option 1', value: '1'}, { label: 'Option 2', value: '2' }]} width="100%" />
+                                }
+                            />
+                            <DemoView 
+                                title="DataList"
+                                propObject={{}}
+                                example={
+                                    <BL.DataList 
+                                        width="100%" 
+                                        columns={[
+                                            {
+                                                title: 'User',
+                                                icon: 'user',
+                                                width: '30%',
+                                                contentStyle: {
+                                                }
+                                            },
+                                            {
+                                                title: 'Status',
+                                                headerAlign: 'right'
+                                            },
+                                            {
+                                                width: '90px',
+                                                title: 'Actions',
+                                                headerAlign: 'right'
+                                            }
+                                        ]}
+                                        data={[
+                                            [
+                                                'John Doe', 
+                                                <BL.TextInput width="100%" noMargin value="Single" />, 
+                                                <span>
+                                                    <BL.Button style={{margin: '0px 2px'}} onClick={() => { alert('Saving John Doe status!'); }}  blStyle="success" icon="save" />
+                                                    <BL.Button onClick={() => { alert('Deleting John Doe!'); }} noMargin blStyle="danger" icon="trash" />
+                                                </span>
+                                            ],
+                                            [
+                                                'Mr. Poopy', 
+                                                <BL.TextInput width="100%" noMargin placeholder="Enter status.." />, 
+                                                <span>
+                                                    <BL.Button style={{margin: '0px 2px'}} onClick={() => { alert('Saving Mr. Poopy status!'); }}  blStyle="success" icon="save" />
+                                                    <BL.Button onClick={() => { alert('Deleting Mr. Poopy!'); }} noMargin blStyle="danger" icon="trash" />
+                                                </span>
+                                            ]
+                                        ]}
+                                        />
                                 }
                             />
                     </td>
