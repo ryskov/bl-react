@@ -15,7 +15,11 @@
   }
   
   .bl-datalist-title {
-    margin-bottom: 7px;
+    padding-left: 3px;
+    padding-right: 7px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    font-size: 15px;
     color: #aaa;
     font-variant: all-small-caps;
     letter-spacing: 1px;
