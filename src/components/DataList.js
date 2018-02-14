@@ -69,8 +69,7 @@ export default class DataList extends Component {
                                     tClass = 'bl-primary';
                                     break;
                             }
-
-                            console.log(`bl-datalist-row ${tClass}`);
+                            
                             return (
                                 <tr onClick={onClick.bind(null, rowData)} className={`bl-datalist-row ${tClass}`}>
                                     {data.map((columnData, i) => {
