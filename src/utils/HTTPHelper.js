@@ -52,6 +52,39 @@ export default class HTTPHelper {
         });
     }
 
+    static delete(uri, baseUrl, headers) {
+        headers = _getCompletedHeaders(headers);
+
+        return new Promise((resolve, reject) => {
+            baseUrl = baseUrl || this.getUrl();
+
+            var xmlHttp = new XMLHttpRequest();
+
+            xmlHttp.onreadystatechange = () => {
+                if (xmlHttp.readyState === 4) {
+                    if (xmlHttp.status === 204) {
+                        try {
+                            resolve(JSON.parse(xmlHttp.responseText));
+                        }
+                        catch (e) {
+                            resolve(xmlHttp.responseText);
+                        }
+                    }
+                    else
+                        reject(xmlHttp.status);
+                } 
+            }
+
+            xmlHttp.open("DELETE", baseUrl + uri, true); // true for asynchronous 
+
+            for (let key in headers) {
+                xmlHttp.setRequestHeader(key, headers[key]);
+            }
+            
+            xmlHttp.send(null);
+        });
+    }
+
     static post(uri, data, baseUrl, headers) {
         headers = _getCompletedHeaders(headers);
 
