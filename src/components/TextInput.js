@@ -50,6 +50,10 @@ export default class TextInput extends Component {
     }
 
     _onBlur() {
+        if (this.state.multiValue) {
+            this._processMultiValueItems();
+        }
+        
         if (this.props.placeholder) {
             this.refs.textinput.placeholder = this.props.placeholder;
         }
@@ -88,24 +92,28 @@ export default class TextInput extends Component {
         if (this.state.multiValue && this.state.multiValueSeparator == pressedKeyCharacter) {
             e.preventDefault();
 
-            let itemValid = true;
-            if (this.props.validateItem) itemValid = this.props.validateItem(this.refs.textinput.value);
-
-            if (!itemValid) {
-                this.setState({
-                    currentItemInvalid: true
-                });
-
-                return;
-            }
-
-            this.setState({
-                values: this.state.values.concat(this.refs.textinput.value)
-            }, () => {
-                this.refs.textinput.value = "";
-                this.props.onItemsChange && this.props.onItemsChange(this.state.values);
-            });
+            this._processMultiValueItems();
         }
+    }
+
+    _processMultiValueItems() {
+        let itemValid = true;
+        if (this.props.validateItem) itemValid = this.props.validateItem(this.refs.textinput.value);
+
+        if (!itemValid) {
+            this.setState({
+                currentItemInvalid: true
+            });
+
+            return;
+        }
+
+        this.setState({
+            values: this.state.values.concat(this.refs.textinput.value)
+        }, () => {
+            this.refs.textinput.value = "";
+            this.props.onItemsChange && this.props.onItemsChange(this.state.values);
+        });
     }
 
     blur() {
