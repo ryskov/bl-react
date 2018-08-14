@@ -6,7 +6,11 @@ export default class TextInput extends Component {
         super(props);
 
         this.state = {
-            textAlign: 'center'
+            textAlign: 'center',
+            multiValue: props.multiValue || false,
+            multiValueSeparator: props.multiValueSeparator || ' ',
+            values: [],
+            currentItemInvalid: false
         };
     }
 
@@ -17,11 +21,22 @@ export default class TextInput extends Component {
     }
 
     get value() {
+        if (this.state.multiValue) {
+            return this.state.values;
+        }
+
         return this.refs.textinput.value;
     }
 
     set value(val) {
-        this.refs.textinput.value = val;
+        if (this.state.multiValue) {
+            this.setState({
+                values: val
+            });
+        }
+        else {
+            this.refs.textinput.value = val;
+        }
     }
 
     _onFocus() {
@@ -55,12 +70,41 @@ export default class TextInput extends Component {
             default:
                 break;
         }
-
+        
         if (this.props.onKeyDown) this.props.onKeyDown(e);
     }
     
     _onKeyUp(e) {
         if (this.props.onKeyUp) this.props.onKeyUp(e);
+    }
+    
+    _onKeyPress(e) {
+        let pressedKeyCharacter = String.fromCharCode(e.which);
+
+        this.setState({
+            currentItemInvalid: false
+        });
+
+        if (this.state.multiValue && this.state.multiValueSeparator == pressedKeyCharacter) {
+            e.preventDefault();
+
+            let itemValid = true;
+            if (this.props.validateItem) itemValid = this.props.validateItem(this.refs.textinput.value);
+
+            if (!itemValid) {
+                this.setState({
+                    currentItemInvalid: true
+                });
+
+                return;
+            }
+
+            this.setState({
+                values: this.state.values.concat(this.refs.textinput.value)
+            }, () => {
+                this.refs.textinput.value = "";
+            });
+        }
     }
 
     blur() {
@@ -121,18 +165,53 @@ export default class TextInput extends Component {
 
         _style.textAlign = this.state.textAlign;
 
+        if (this.state.multiValue) {
+            if (this.state.currentItemInvalid) { 
+                tClass = 'bl-danger'; 
+            }
+
+            if (this.state.values.length > 0) {
+                _style.borderTopLeftRadius = '0px';
+                _style.borderBottomLeftRadius = '0px';
+                _style.marginLeft = '2px';
+            }
+
+        }
+
         return (
-            <input 
-                type={type}
-                disabled={disabled}
-                style={_style}
-                ref="textinput"
-                className={`bl-text-input ${tClass}`}
-                onFocus={this._onFocus.bind(this)}
-                onBlur={this._onBlur.bind(this)}
-                placeholder={placeholder ? placeholder : null}
-                onKeyDown={this._onKeyDown.bind(this) }
-                onKeyUp={this._onKeyUp.bind(this) } />
+            <div style={{ width: '100%', borderSpacing: '0px', display: 'table' }}>
+                <div style={{ display: 'table-cell'}}>
+                    {this.state.multiValue ? this.state.values.map((value, i) => {
+                        return (
+                            <span key={i} className="bl-text-input-value" onClick={() => {
+                                let newValues = [...this.state.values];
+                                newValues.splice(i, 1);
+
+                                this.setState({
+                                    values: newValues
+                                });
+                            }}>
+                                {value}
+                            </span>
+                        );
+                    }) : null }
+                </div>
+                <div style={{ display: 'table-cell', width: '100%' }}>
+                    <input 
+                        type={type}
+                        disabled={disabled}
+                        style={_style}
+                        ref="textinput"
+                        className={`bl-text-input ${tClass}`}
+                        onFocus={this._onFocus.bind(this)}
+                        onBlur={this._onBlur.bind(this)}
+                        placeholder={placeholder ? placeholder : null}
+                        onKeyDown={this._onKeyDown.bind(this) }
+                        onKeyUp={this._onKeyUp.bind(this) } 
+                        onKeyPress={this._onKeyPress.bind(this)}
+                    />
+                </div>
+            </div>
         );
     }
 
