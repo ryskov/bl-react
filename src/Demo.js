@@ -17,26 +17,6 @@ const PropTable = ({ propObject }) => {
             })}
             />
     );
-
-    return (
-        <table cellSpacing="0" cellPadding="2" style={{ marginTop: '10px', marginBottom: '10px', width: '100%', color: 'inherit' }}>
-
-            <tbody>
-                <tr>
-                    <th>Property Name</th>
-                    <th>Property Type</th>
-                </tr>
-                {_.map(propObject, (propType, propName) => {
-                    return (
-                        <tr key={propName}>
-                            <td style={{ borderTop: '1px solid #888' }}>{propName}</td>
-                            <td style={{ borderTop: '1px solid #888' }}>{propType}</td>
-                        </tr>
-                    );
-                })}
-            </tbody>
-        </table>
-    );
 };
 
 const DemoView = ({ title, propObject, example }) => {
@@ -85,7 +65,6 @@ const Demo = () => {
                                     </BL.Panel>
                                 </div>
                             } />
-
                         <DemoView
                             title="TextArea"
                             propObject={{
@@ -100,6 +79,9 @@ const Demo = () => {
                             example={
                                 <BL.TextArea width="100%" placeholder={'Type here\n...'} />
                             } />
+                        
+                    </td>
+                    <td style={{verticalAlign: 'top'}}>
                         <DemoView
                             title="TextInput"
                             propObject={{
@@ -107,6 +89,11 @@ const Demo = () => {
                                 noMargin: 'bool',
                                 onSubmit: 'function',
                                 placeholder: 'string',
+                                multiValue: 'bool',
+                                onItemsChange: 'function',
+                                validateItem: 'function',
+                                multiValueSeparator: 'string',
+                                allowTabSeparator: 'bool',
                                 width: 'string',
                                 height: 'string',
                                 style: 'object'
@@ -124,8 +111,17 @@ const Demo = () => {
                                     />
                                 </div>
                             } />
-                    </td>
-                    <td style={{verticalAlign: 'top'}}>
+                            <DemoView 
+                                title="Dropdown"
+                                propObject={{}}
+                                example={
+                                    <BL.Dropdown 
+                                        title="Test" 
+                                        actions={[{ label: 'Option 1', value: '1'}, { label: 'Option 2', value: '2' }]} width="100%" />
+                                }
+                            />
+                        </td>
+                        <td style={{verticalAlign: 'top'}}>
                         <DemoView
                             title="Button"
                             propObject={{
@@ -176,16 +172,15 @@ const Demo = () => {
                                     </BL.Panel>
                                 </div>
                             } />
-                            <DemoView 
-                                title="Dropdown"
-                                propObject={{}}
-                                example={
-                                    <BL.Dropdown title="Test" actions={[{ label: 'Option 1', value: '1'}, { label: 'Option 2', value: '2' }]} width="100%" />
-                                }
-                            />
+                        </td>
+                        <td style={{verticalAlign: 'top'}}>
                             <DemoView 
                                 title="DataList"
-                                propObject={{}}
+                                propObject={{
+                                    width: 'string',
+                                    columns: 'array[object]',
+                                    data: 'array[array[]]'
+                                }}
                                 example={
                                     <BL.DataList 
                                         width="100%" 
