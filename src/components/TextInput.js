@@ -53,7 +53,7 @@ export default class TextInput extends Component {
         if (this.state.multiValue) {
             this._processMultiValueItems();
         }
-        
+
         if (this.props.placeholder) {
             this.refs.textinput.placeholder = this.props.placeholder;
         }
@@ -97,6 +97,8 @@ export default class TextInput extends Component {
     }
 
     _processMultiValueItems() {
+        if (!this.refs.textinput.value) return;
+
         let itemValid = true;
         if (this.props.validateItem) itemValid = this.props.validateItem(this.refs.textinput.value);
 
