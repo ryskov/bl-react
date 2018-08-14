@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import './../styles/TextInput.css';
 
-export default class TextInput extends Component {
+class TextInput extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             textAlign: 'center',
-            multiValue: props.multiValue || false,
-            multiValueSeparator: props.multiValueSeparator || ' ',
             values: [],
             currentItemInvalid: false
         };
@@ -21,7 +19,7 @@ export default class TextInput extends Component {
     }
 
     get value() {
-        if (this.state.multiValue) {
+        if (this.props.multiValue) {
             return this.state.values;
         }
 
@@ -29,7 +27,7 @@ export default class TextInput extends Component {
     }
 
     set value(val) {
-        if (this.state.multiValue) {
+        if (this.props.multiValue) {
             this.setState({
                 values: val
             });
@@ -50,7 +48,7 @@ export default class TextInput extends Component {
     }
 
     _onBlur() {
-        if (this.state.multiValue) {
+        if (this.props.multiValue) {
             this._processMultiValueItems();
         }
 
@@ -71,6 +69,12 @@ export default class TextInput extends Component {
                     e.preventDefault();
                 }
                 break;
+            case 9: // tab
+                if (this.props.multiValue && this.props.allowTabSeparator && this.refs.textinput.value) {
+                    e.preventDefault();
+                    this._processMultiValueItems();
+                }
+                break;
             default:
                 break;
         }
@@ -89,7 +93,7 @@ export default class TextInput extends Component {
             currentItemInvalid: false
         });
 
-        if (this.state.multiValue && this.state.multiValueSeparator == pressedKeyCharacter) {
+        if (this.props.multiValue && this.props.multiValueSeparator == pressedKeyCharacter) {
             e.preventDefault();
 
             this._processMultiValueItems();
@@ -176,7 +180,7 @@ export default class TextInput extends Component {
 
         _style.textAlign = this.state.textAlign;
 
-        if (this.state.multiValue) {
+        if (this.props.multiValue) {
             if (this.state.currentItemInvalid) { 
                 tClass = 'bl-danger'; 
             }
@@ -192,7 +196,7 @@ export default class TextInput extends Component {
         return (
             <div style={{ width: '100%', borderSpacing: '0px', display: 'table' }}>
                 <div style={{ display: 'table-cell'}}>
-                    {this.state.multiValue ? this.state.values.map((value, i) => {
+                    {this.props.multiValue ? this.state.values.map((value, i) => {
                         return (
                             <span key={i} className="bl-text-input-value" onClick={() => {
                                 let newValues = [...this.state.values];
@@ -261,3 +265,10 @@ export default class TextInput extends Component {
         return this._renderInput();
     }
 }
+TextInput.defaultProps = {
+    multiValue: false,
+    multiValueSeparator: ' ',
+    allowTabSeparator: true
+};
+
+export default TextInput;
