@@ -83,6 +83,12 @@ class TextInput extends Component {
     }
     
     _onKeyUp(e) {
+        if (!this.refs.textinput.value) {
+            this.setState({
+                currentItemInvalid: false
+            });
+        }
+        
         if (this.props.onKeyUp) this.props.onKeyUp(e);
     }
     
