@@ -5,10 +5,15 @@ class TextInput extends Component {
     constructor(props) {
         super(props);
 
+        this.clearBackspaceStateTimeout = null;
+
         this.state = {
             textAlign: 'center',
             values: [],
-            currentItemInvalid: false
+            currentItemInvalid: false,
+            backspacePressedRecently: null,
+            inBackspaceGracePeriod: false,
+            pressInEmptyInput: true
         };
     }
 
@@ -62,6 +67,10 @@ class TextInput extends Component {
     }
 
     _onKeyDown(e) {
+        this.setState({
+            pressInEmptyInput: !this.refs.textinput.value
+        });
+
         switch (e.keyCode) {
             case 13: // enter
                 if (this.props.onSubmit) {
@@ -81,6 +90,24 @@ class TextInput extends Component {
         
         if (this.props.onKeyDown) this.props.onKeyDown(e);
     }
+
+    _resetBackspaceState(enterGracePeriod = true) {
+        this.setState({
+            backspacePressedRecently: false,
+            inBackspaceGracePeriod: enterGracePeriod
+        }, () => {
+            if (this.clearBackspaceStateTimeout) window.clearTimeout(this.clearBackspaceStateTimeout);
+            this.clearBackspaceStateTimeout = null;
+
+            if (enterGracePeriod) {
+                setTimeout(() => {
+                    this.setState({
+                        inBackspaceGracePeriod: false
+                    });
+                }, 500);
+            }
+        });
+    }
     
     _onKeyUp(e) {
         if (!this.refs.textinput.value) {
@@ -88,7 +115,33 @@ class TextInput extends Component {
                 currentItemInvalid: false
             });
         }
-        
+        else {
+            this._resetBackspaceState();
+        }
+
+        const startClearBackspaceTimeout = () => {
+            if (this.clearBackspaceStateTimeout) window.clearTimeout(this.clearBackspaceStateTimeout);
+            this.clearBackspaceStateTimeout = setTimeout(this._resetBackspaceState.bind(this), 1000);
+        }
+
+        switch (e.keyCode) {
+            case 8:
+                if (!this.props.multiValue || this.state.inBackspaceGracePeriod || this.state.values.length === 0 || this.refs.textinput.value || !this.state.pressInEmptyInput) break;
+
+                if (this.state.backspacePressedRecently) {
+                    this._removeValueFromIndex(this.state.values.length -1);
+                    this._resetBackspaceState(false);
+                }
+                else {
+                    this.setState({
+                        backspacePressedRecently: true
+                    }, startClearBackspaceTimeout);
+                }
+                break;
+            default: 
+                break;
+        }
+
         if (this.props.onKeyUp) this.props.onKeyUp(e);
     }
     
@@ -104,6 +157,17 @@ class TextInput extends Component {
 
             this._processMultiValueItems();
         }
+    }
+
+    _removeValueFromIndex(index) {
+        let newValues = [...this.state.values];
+        newValues.splice(index, 1);
+
+        this.setState({
+            values: newValues,
+        }, () => {
+            this.props.onItemsChange && this.props.onItemsChange(this.state.values);
+        });
     }
 
     _processMultiValueItems() {
@@ -204,16 +268,11 @@ class TextInput extends Component {
                 <div style={{ display: 'table-cell'}}>
                     {this.props.multiValue ? this.state.values.map((value, i) => {
                         return (
-                            <span key={i} className="bl-text-input-value" onClick={() => {
-                                let newValues = [...this.state.values];
-                                newValues.splice(i, 1);
-
-                                this.setState({
-                                    values: newValues
-                                }, () => {
-                                    this.props.onItemsChange && this.props.onItemsChange(this.state.values);
-                                });
-                            }}>
+                            <span 
+                                key={i} 
+                                className={`bl-text-input-value${ i == this.state.values.length -1 && this.state.backspacePressedRecently ? ' bl-danger' : ''}`}
+                                onClick={this._removeValueFromIndex.bind(this, i)} 
+                            >
                                 {value}
                             </span>
                         );

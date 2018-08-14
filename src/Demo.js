@@ -115,7 +115,13 @@ const Demo = () => {
                                 <div>
                                     <BL.TextInput width="100%" title="With title" placeholder={'Type here...'} />
                                     <BL.TextInput width="100%" title="Another disabled one" disabled={true} placeholder={'Type here...'} />
-                                    <BL.TextInput width="100%" title="Supports multiple values with validation (IPv4)" multiValue validateItem={item => /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(\/\d{1,2})?$/.test(item)} placeholder={'Type here...'} />
+                                    <BL.TextInput 
+                                        width="100%" 
+                                        title="Supports multiple values with validation (IPv4)" 
+                                        multiValue 
+                                        validateItem={item => /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(\/\d{1,2})?$/.test(item)} 
+                                        placeholder={'Type here...'} 
+                                    />
                                 </div>
                             } />
                     </td>
