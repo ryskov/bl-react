@@ -103,6 +103,7 @@ export default class TextInput extends Component {
                 values: this.state.values.concat(this.refs.textinput.value)
             }, () => {
                 this.refs.textinput.value = "";
+                this.props.onItemsChange && this.props.onItemsChange(this.state.values);
             });
         }
     }
@@ -189,6 +190,8 @@ export default class TextInput extends Component {
 
                                 this.setState({
                                     values: newValues
+                                }, () => {
+                                    this.props.onItemsChange && this.props.onItemsChange(this.state.values);
                                 });
                             }}>
                                 {value}
