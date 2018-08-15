@@ -28,7 +28,7 @@ export default class HTTPHelper {
 
             xmlHttp.onreadystatechange = () => {
                 if (xmlHttp.readyState === 4) {
-                    if (xmlHttp.status === 201) {
+                    if (xmlHttp.status >= 200 && xmlHttp.status < 300) {
                         try {
                             resolve(JSON.parse(xmlHttp.responseText));
                         }
@@ -62,7 +62,7 @@ export default class HTTPHelper {
 
             xmlHttp.onreadystatechange = () => {
                 if (xmlHttp.readyState === 4) {
-                    if (xmlHttp.status === 204) {
+                    if (xmlHttp.status >= 200 && xmlHttp.status < 300) {
                         try {
                             resolve(JSON.parse(xmlHttp.responseText));
                         }
@@ -95,7 +95,7 @@ export default class HTTPHelper {
 
             xmlHttp.onreadystatechange = () => {
                 if (xmlHttp.readyState === 4) {
-                    if ([200, 201].indexOf(xmlHttp.status) > -1) {
+                    if (xmlHttp.status >= 200 && xmlHttp.status < 300) {
                         try {
                             resolve(JSON.parse(xmlHttp.responseText));
                         }
@@ -129,7 +129,7 @@ export default class HTTPHelper {
 
             xmlHttp.onreadystatechange = () => {
                 if (xmlHttp.readyState === 4) {
-                    if (xmlHttp.status === 200) {
+                    if (xmlHttp.status >= 200 && xmlHttp.status < 300) {
                         try {
                             resolve(JSON.parse(xmlHttp.responseText));
                         }
