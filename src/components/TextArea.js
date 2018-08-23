@@ -94,7 +94,8 @@ export default class TextArea extends Component {
             width,
             height,
             noMargin,
-            disabled
+            disabled,
+	    value
         } = this.props;
 
         let _style = style || {};
@@ -108,6 +109,7 @@ export default class TextArea extends Component {
 
         return (
             <textarea
+		value={value}
                 disabled={disabled}
                 style={_style}
                 ref="textarea"
