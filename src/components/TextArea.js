@@ -7,7 +7,7 @@ export default class TextArea extends Component {
 
         this.state = {
             shiftIsPressed: false,
-            textAlign: 'center'
+            textAlign: props.value ? 'left' : 'center'
         };
     }
 
