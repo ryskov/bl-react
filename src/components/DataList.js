@@ -76,8 +76,8 @@ export default class DataList extends Component {
                             let dataA = a instanceof Array ? a : (a.data ? a.data : []);
                             let dataB = b instanceof Array ? b : (b.data ? b.data : []);
 
-                            if (!dataA[this.state.sortField]) return 0;
-                            if (!dataB[this.state.sortField]) return 0;
+                            if (dataA[this.state.sortField] == undefined || dataA[this.state.sortField] == null) return 0;
+                            if (dataB[this.state.sortField] == undefined || dataB[this.state.sortField] == null) return 0;
 
                             let { sortAsInteger = false } = columns[this.state.sortField];
 

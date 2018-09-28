@@ -10,7 +10,7 @@ const PropTable = ({ propObject }) => {
         <BL.DataList 
             columns={[
                 { title: 'Property Name', width: '50%', contentStyle: { fontFamily: 'Courier' }, headerAlign: 'left' },
-                { title: 'Property Type', width: '50%', contentStyle: { fontFamily: 'Courier' }, headerAlign: 'left' },
+                { title: 'Property Type', allowSort: true, width: '50%', contentStyle: { fontFamily: 'Courier' }, headerAlign: 'left' }
             ]} 
             data={_.map(propObject, (propType, propName) => {
                 return [ propName, propType ];
