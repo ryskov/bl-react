@@ -79,10 +79,20 @@ export default class DataList extends Component {
                             if (!dataA[this.state.sortField]) return 0;
                             if (!dataB[this.state.sortField]) return 0;
 
+                            let { sortAsInteger = false } = columns[this.state.sortField];
+
                             if (this.state.sortDirection == SORT_DIRECTION.ASCENDING) {
-                                return dataA[this.state.sortField].toString().localeCompare(dataB[this.state.sortField].toString())
+                                if (sortAsInteger) {
+                                    return parseInt(dataA[this.state.sortField]) - parseInt(dataB[this.state.sortField]);
+                                } else {
+                                    return dataA[this.state.sortField].toString().localeCompare(dataB[this.state.sortField].toString())
+                                }
                             } else {
-                                return dataB[this.state.sortField].toString().localeCompare(dataA[this.state.sortField].toString())
+                                if (sortAsInteger) {
+                                    return parseInt(dataB[this.state.sortField]) - parseInt(dataA[this.state.sortField]);
+                                } else {
+                                    return dataB[this.state.sortField].toString().localeCompare(dataA[this.state.sortField].toString())
+                                }
                             }
                         }).map((rowData, idx) => {
                             let isArray = rowData instanceof Array;
