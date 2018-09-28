@@ -40,7 +40,7 @@ export default class DataList extends Component {
                 <table className="bl-datalist-table" width="100%" cellSpacing="0" cellPadding="0">
                     <thead>
                         <tr>
-                            {columns.map(({ title, icon, iconProps, width, headerAlign = 'left' }, idx) => {
+                            {columns.map(({ title, icon, iconProps, width, headerAlign = 'left', allowSort = false }, idx) => {
                                 let _iconProps = iconProps || {};
                                 if (icon && !_iconProps.name) _iconProps.name = icon;
 
@@ -48,12 +48,12 @@ export default class DataList extends Component {
                                 if (this.state.sortField == idx) textDecoration = 'underline';
 
                                 let cursor = 'normal';
-                                if (!disableSort) cursor = 'pointer';
+                                if (!disableSort && allowSort) cursor = 'pointer';
 
                                 return (
                                     <td 
                                     onClick={() => {
-                                        if (disableSort) return;
+                                        if (disableSort || !allowSort) return;
 
                                         this.setState({
                                             sortField: idx,
