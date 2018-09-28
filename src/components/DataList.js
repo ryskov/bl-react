@@ -2,9 +2,18 @@ import React, { Component } from 'react';
 import './../styles/DataList.css';
 import {Icon} from 'react-fa';
 
+const SORT_DIRECTION = {
+    DESCENDING: 'descending',
+    ASCENDING: 'ascending'
+};
+
 export default class DataList extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            sortDirection: SORT_DIRECTION.DESCENDING,
+            sortField: null
+        };
     }
 
     render() {
@@ -15,7 +24,8 @@ export default class DataList extends Component {
             width,
             height,
             title,
-            noMargin
+            noMargin,
+            disableSort = false
         } = this.props;
 
         let _style = style || {};
@@ -30,20 +40,51 @@ export default class DataList extends Component {
                 <table className="bl-datalist-table" width="100%" cellSpacing="0" cellPadding="0">
                     <thead>
                         <tr>
-                            {columns.map(({ title, icon, iconProps, width, headerAlign = 'left' }) => {
+                            {columns.map(({ title, icon, iconProps, width, headerAlign = 'left' }, idx) => {
                                 let _iconProps = iconProps || {};
                                 if (icon && !_iconProps.name) _iconProps.name = icon;
 
+                                let textDecoration = 'none';
+                                if (this.state.sortField == idx) textDecoration = 'underline';
+
+                                let cursor = 'normal';
+                                if (!disableSort) cursor = 'pointer';
+
                                 return (
-                                    <td style={{width, textAlign: headerAlign}} className="bl-datalist-title">
-                                        {_iconProps || icon ? <Icon {..._iconProps}/> : null} {title}
+                                    <td 
+                                    onClick={() => {
+                                        if (disableSort) return;
+
+                                        this.setState({
+                                            sortField: idx,
+                                            sortDirection: idx === this.state.sortField ? (this.state.sortDirection == SORT_DIRECTION.ASCENDING ? SORT_DIRECTION.DESCENDING : SORT_DIRECTION.ASCENDING) : SORT_DIRECTION.ASCENDING
+                                        });
+                                    }}
+                                    key={idx}
+                                    style={{width, textAlign: headerAlign, textDecoration, cursor}} 
+                                    className="bl-datalist-title">
+                                        {_iconProps.name || icon ? <Icon {..._iconProps}/> : null} {title} {this.state.sortField == idx ? <Icon name={this.state.sortDirection == SORT_DIRECTION.ASCENDING ? 'arrow-up' : 'arrow-down'} /> : null}
                                     </td>
                                 );
                             })}
                         </tr>
                     </thead>
                     <tbody className="bl-datalist-body">
-                        {data.map((rowData) => {
+                        {data.sort((a, b) => {
+                            if (this.state.sortField === null) return 0;
+
+                            let dataA = a instanceof Array ? a : (a.data ? a.data : []);
+                            let dataB = b instanceof Array ? b : (b.data ? b.data : []);
+
+                            if (!dataA[this.state.sortField]) return 0;
+                            if (!dataB[this.state.sortField]) return 0;
+
+                            if (this.state.sortDirection == SORT_DIRECTION.ASCENDING) {
+                                return dataA[this.state.sortField].toString().localeCompare(dataB[this.state.sortField].toString())
+                            } else {
+                                return dataB[this.state.sortField].toString().localeCompare(dataA[this.state.sortField].toString())
+                            }
+                        }).map((rowData, idx) => {
                             let isArray = rowData instanceof Array;
 
                             let blStyle = 'primary';
@@ -71,7 +112,7 @@ export default class DataList extends Component {
                             }
                             
                             return (
-                                <tr onClick={onClick.bind(null, rowData)} className={`bl-datalist-row ${tClass}`}>
+                                <tr onClick={onClick.bind(null, rowData)} key={idx} className={`bl-datalist-row ${tClass}`}>
                                     {data.map((columnData, i) => {
                                         let {
                                             contentAlign = columns[i].headerAlign || 'left',
@@ -79,7 +120,7 @@ export default class DataList extends Component {
                                         } = columns[i];
 
                                         return (
-                                            <td style={Object.assign(contentStyle, { textAlign: contentAlign })} className="bl-datalist-column">
+                                            <td key={i} style={Object.assign(contentStyle, { textAlign: contentAlign })} className="bl-datalist-column">
                                                 {columnData}
                                             </td>
                                         );

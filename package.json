@@ -5,7 +5,7 @@
   "main": "./build/bundle.js",
   "scripts": {
     "build": "rm -rf build/* && webpack --progress --config webpack.config.prod.js",
-    "start": "webpack-dev-server --progress --config webpack.config.js"
+    "start": "webpack-dev-server --port 3000 --progress --config webpack.config.js"
   },
   "dependencies": {
     "react": "^15.2.1",
