@@ -76,6 +76,25 @@ class TextInput extends Component {
         });
     }
 
+    _onSubmit() {
+        let selectionWasUsed = false;
+        if (this.props.fetch && this.state.suggestions.length > 0 && this.state.selectedIndex > -1) {
+            let selection = this.state.suggestions[this.state.selectedIndex];
+            this.refs.textinput.value = selection.value;
+            this.setState({ suggestions: [] });
+            selectionWasUsed = true;
+        }
+
+        if (this.props.onSubmit) {
+            this.props.onSubmit(this.refs.textinput.value);
+            e.preventDefault();
+        }
+
+        if (selectionWasUsed) {
+            this.refs.textinput.blur();
+        }
+    }
+
     _onKeyDown(e) {
         this.setState({
             pressInEmptyInput: !this.refs.textinput.value
@@ -83,22 +102,7 @@ class TextInput extends Component {
 
         switch (e.keyCode) {
             case 13: // enter
-                let selectionWasUsed = false;
-                if (this.props.fetch && this.state.suggestions.length > 0 && this.state.selectedIndex > -1) {
-                    let selection = this.state.suggestions[this.state.selectedIndex];
-                    this.refs.textinput.value = selection.value;
-                    this.setState({ suggestions: [] });
-                    selectionWasUsed = true;
-                }
-
-                if (this.props.onSubmit) {
-                    this.props.onSubmit(this.refs.textinput.value);
-                    e.preventDefault();
-                }
-
-                if (selectionWasUsed) {
-                    this.refs.textinput.blur();
-                }
+                this._onSubmit()
                 break;
             case 9: // tab
                 if (this.props.multiValue && this.props.allowTabSeparator && this.refs.textinput.value) {
@@ -354,7 +358,7 @@ class TextInput extends Component {
                         <div className="bl-text-input" style={{ backgroundColor: 'white', position: 'absolute' }}>
                             {this.state.suggestions.map((suggestion, idx) => {
                                 return (
-                                    <span onMouseOver={() => { this.setState({ selectedIndex: idx }) }} key={idx} className={`bl-text-input-suggestion bl-text-input-title${this.state.selectedIndex === idx ? ' bl-text-input-selected' : ''}`} style={{display: 'block', height: '20px', paddingLeft: '5px'}}>
+                                    <span onClick={this._onSubmit.bind(this)} onMouseOver={() => { this.setState({ selectedIndex: idx }) }} key={idx} className={`bl-text-input-suggestion bl-text-input-title${this.state.selectedIndex === idx ? ' bl-text-input-selected' : ''}`} style={{display: 'block', height: '20px', paddingLeft: '5px'}}>
                                         {suggestion.title}
                                     </span>
                                 )
