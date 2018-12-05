@@ -82,15 +82,21 @@ class TextInput extends Component {
 
         switch (e.keyCode) {
             case 13: // enter
+                let selectionWasUsed = false;
                 if (this.props.fetch && this.state.suggestions.length > 0 && this.state.selectedIndex > -1) {
                     let selection = this.state.suggestions[this.state.selectedIndex];
                     this.refs.textinput.value = selection.value;
                     this.setState({ suggestions: [] });
+                    selectionWasUsed = true;
                 }
 
                 if (this.props.onSubmit) {
                     this.props.onSubmit(this.refs.textinput.value);
                     e.preventDefault();
+                }
+
+                if (selectionWasUsed) {
+                    this.refs.textinput.blur();
                 }
                 break;
             case 9: // tab
