@@ -358,7 +358,7 @@ class TextInput extends Component {
                         <div className="bl-text-input" style={{ backgroundColor: 'white', position: 'absolute' }}>
                             {this.state.suggestions.map((suggestion, idx) => {
                                 return (
-                                    <span onClick={this._onSubmit.bind(this)} onMouseOver={() => { this.setState({ selectedIndex: idx }) }} key={idx} className={`bl-text-input-suggestion bl-text-input-title${this.state.selectedIndex === idx ? ' bl-text-input-selected' : ''}`} style={{display: 'block', height: '20px', paddingLeft: '5px'}}>
+                                    <span onMouseDown={(e) => { console.log('Clicked'); this._onSubmit(); e.preventDefault(); }} onMouseOver={() => { this.setState({ selectedIndex: idx }) }} key={idx} className={`bl-text-input-suggestion${this.state.selectedIndex === idx ? ' bl-text-input-selected' : ''}`} style={{display: 'block', height: '20px'}}>
                                         {suggestion.title}
                                     </span>
                                 )
