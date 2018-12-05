@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
 import './../styles/TextInput.css';
+import _ from 'underscore';
 
 class TextInput extends Component {
     constructor(props) {
         super(props);
 
         this.clearBackspaceStateTimeout = null;
-
+        this._tryFetchSuggestions = _.throttle(this._tryFetchSuggestions, 500);
+        
         this.state = {
             textAlign: 'center',
             values: [],
+            
+            suggestions: [],
+            selectedIndex: -1,
+
             currentItemInvalid: false,
             backspacePressedRecently: null,
             inBackspaceGracePeriod: false,
@@ -50,6 +56,8 @@ class TextInput extends Component {
         this.setState({
             textAlign: 'left'
         });
+
+        this._tryFetchSuggestions();
     }
 
     _onBlur() {
@@ -62,7 +70,8 @@ class TextInput extends Component {
         }
 
         this.setState({
-            textAlign: 'center'
+            textAlign: 'center',
+            suggestions: []
         });
     }
 
@@ -73,6 +82,12 @@ class TextInput extends Component {
 
         switch (e.keyCode) {
             case 13: // enter
+                if (this.props.fetch && this.state.suggestions.length > 0 && this.state.selectedIndex > -1) {
+                    let selection = this.state.suggestions[this.state.selectedIndex];
+                    this.refs.textinput.value = selection.value;
+                    this.setState({ suggestions: [] });
+                }
+
                 if (this.props.onSubmit) {
                     this.props.onSubmit(this.refs.textinput.value);
                     e.preventDefault();
@@ -83,6 +98,18 @@ class TextInput extends Component {
                     e.preventDefault();
                     this._processMultiValueItems();
                 }
+                break;
+            case 38: // up arrow
+                this.setState({
+                    selectedIndex: Math.max(this.state.selectedIndex - 1, this.state.suggestions.length > 0 ? 0 : -1)
+                });
+                e.preventDefault();
+                break;
+            case 40: // down arrow
+                this.setState({
+                    selectedIndex: Math.min(this.state.selectedIndex + 1, this.state.suggestions.length - 1)
+                });
+                e.preventDefault();
                 break;
             default:
                 break;
@@ -142,7 +169,27 @@ class TextInput extends Component {
                 break;
         }
 
+        const bannedKeyCodes = [
+            13, 9, 38, 39, 40, 45
+        ];
+        
+        if (bannedKeyCodes.indexOf(e.keyCode) === -1) this._tryFetchSuggestions();
+
         if (this.props.onKeyUp) this.props.onKeyUp(e);
+    }
+
+    _tryFetchSuggestions() {
+        if (this.props.fetch) {
+            let searchQuery = this.refs.textinput.value;
+            if (searchQuery) {
+                this.props.fetch(searchQuery)
+                    .then((results) => {
+                        this.setState({ selectedIndex: results.length > this.state.selectedIndex ? this.state.selectedIndex : results.length - 1, suggestions: results });
+                    });
+            } else {
+                this.setState({ suggestions: [] });
+            }
+        }
     }
     
     _onKeyPress(e) {
@@ -264,35 +311,51 @@ class TextInput extends Component {
         }
 
         return (
-            <div style={{ width: '100%', borderSpacing: '0px', display: 'table' }}>
-                <div style={{ display: 'table-cell'}}>
-                    {this.props.multiValue ? this.state.values.map((value, i) => {
-                        return (
-                            <span 
-                                key={i} 
-                                className={`bl-text-input-value${ i == this.state.values.length -1 && this.state.backspacePressedRecently ? ' bl-danger' : ''}`}
-                                onClick={this._removeValueFromIndex.bind(this, i)} 
-                            >
-                                {value}
-                            </span>
-                        );
-                    }) : null }
+            <div>
+                <div style={{ width: '100%', borderSpacing: '0px', display: 'table' }}>
+                    <div style={{ display: 'table-cell'}}>
+                        {this.props.multiValue ? this.state.values.map((value, i) => {
+                            return (
+                                <span 
+                                    key={i} 
+                                    className={`bl-text-input-value${ i == this.state.values.length -1 && this.state.backspacePressedRecently ? ' bl-danger' : ''}`}
+                                    onClick={this._removeValueFromIndex.bind(this, i)} 
+                                >
+                                    {value}
+                                </span>
+                            );
+                        }) : null }
+                    </div>
+                    <div style={{ display: 'table-cell', width: '100%' }}>
+                        <input 
+                            type={type}
+                            disabled={disabled}
+                            style={_style}
+                            ref="textinput"
+                            className={`bl-text-input ${tClass}`}
+                            onFocus={this._onFocus.bind(this)}
+                            onBlur={this._onBlur.bind(this)}
+                            placeholder={placeholder ? placeholder : null}
+                            onKeyDown={this._onKeyDown.bind(this) }
+                            onKeyUp={this._onKeyUp.bind(this) } 
+                            onKeyPress={this._onKeyPress.bind(this)}
+                        />
+                    </div>
                 </div>
-                <div style={{ display: 'table-cell', width: '100%' }}>
-                    <input 
-                        type={type}
-                        disabled={disabled}
-                        style={_style}
-                        ref="textinput"
-                        className={`bl-text-input ${tClass}`}
-                        onFocus={this._onFocus.bind(this)}
-                        onBlur={this._onBlur.bind(this)}
-                        placeholder={placeholder ? placeholder : null}
-                        onKeyDown={this._onKeyDown.bind(this) }
-                        onKeyUp={this._onKeyUp.bind(this) } 
-                        onKeyPress={this._onKeyPress.bind(this)}
-                    />
-                </div>
+                {this.props.fetch && this.state.suggestions.length > 0 ? 
+                    <div style={{ position: 'relative', top: '-10px', display: 'block' }}>
+                        <div className="bl-text-input" style={{ backgroundColor: 'white', position: 'absolute' }}>
+                            {this.state.suggestions.map((suggestion, idx) => {
+                                return (
+                                    <span key={idx} className={`bl-text-input-suggestion bl-text-input-title${this.state.selectedIndex === idx ? ' bl-text-input-selected' : ''}`} style={{display: 'block', height: '20px', paddingLeft: '5px'}}>
+                                        {suggestion.title}
+                                    </span>
+                                )
+                            })}
+                        </div>
+                    </div> :
+                    null
+                }
             </div>
         );
     }

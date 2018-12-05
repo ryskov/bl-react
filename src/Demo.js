@@ -109,6 +109,26 @@ const Demo = () => {
                                         validateItem={item => /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(\/\d{1,2})?$/.test(item)} 
                                         placeholder={'Type here...'} 
                                     />
+                                    <BL.TextInput 
+                                        width="100%" 
+                                        title="Searchable" 
+                                        placeholder={'Type here...'} 
+                                        fetch={(query) => {
+                                            return new Promise((resolve, reject) => {
+                                                fetch(`http://localhost:4000/someapi/_search?q=${query}`, { method: 'POST', headers: { 'Accept': 'application/json'} })
+                                                    .then(results => results.json())
+                                                    .then(results => {
+                                                        resolve(results.data.filter(entry => entry.name.toLowerCase().indexOf(query.toLowerCase()) > -1).map(({ name, id }) => {
+                                                            return {
+                                                                title: name,
+                                                                value: id
+                                                            };
+                                                        }));
+                                                    })
+                                                    .catch(reject)
+                                            });
+                                        }}
+                                    />
                                 </div>
                             } />
                             <DemoView 
