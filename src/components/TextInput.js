@@ -76,7 +76,7 @@ class TextInput extends Component {
         });
     }
 
-    _onSubmit() {
+    _onSubmit(e) {
         let selectionWasUsed = false;
         if (this.props.fetch && this.state.suggestions.length > 0 && this.state.selectedIndex > -1) {
             let selection = this.state.suggestions[this.state.selectedIndex];
@@ -93,6 +93,8 @@ class TextInput extends Component {
         if (selectionWasUsed) {
             this.refs.textinput.blur();
         }
+
+        if (this.props.onKeyUp) this.props.onKeyUp(e);
     }
 
     _onKeyDown(e) {
@@ -102,7 +104,7 @@ class TextInput extends Component {
 
         switch (e.keyCode) {
             case 13: // enter
-                this._onSubmit()
+                this._onSubmit(e)
                 break;
             case 9: // tab
                 if (this.props.multiValue && this.props.allowTabSeparator && this.refs.textinput.value) {
@@ -358,7 +360,7 @@ class TextInput extends Component {
                         <div className="bl-text-input" style={{ backgroundColor: 'white', position: 'absolute' }}>
                             {this.state.suggestions.map((suggestion, idx) => {
                                 return (
-                                    <span onMouseDown={(e) => { console.log('Clicked'); this._onSubmit(); e.preventDefault(); }} onMouseOver={() => { this.setState({ selectedIndex: idx }) }} key={idx} className={`bl-text-input-suggestion${this.state.selectedIndex === idx ? ' bl-text-input-selected' : ''}`} style={{display: 'block', height: '20px'}}>
+                                    <span onMouseDown={(e) => { console.log('Clicked'); this._onSubmit(e); e.preventDefault(); }} onMouseOver={() => { this.setState({ selectedIndex: idx }) }} key={idx} className={`bl-text-input-suggestion${this.state.selectedIndex === idx ? ' bl-text-input-selected' : ''}`} style={{display: 'block', height: '20px'}}>
                                         {suggestion.title}
                                     </span>
                                 )
