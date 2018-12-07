@@ -135,9 +135,15 @@ const Demo = () => {
                                 title="Dropdown"
                                 propObject={{}}
                                 example={
-                                    <BL.Dropdown 
-                                        title="Test" 
-                                        actions={[{ label: 'Option 1', value: '1'}, { label: 'Option 2', value: '2' }]} width="100%" />
+                                    <div>
+                                        <BL.Dropdown 
+                                            title="Test" 
+                                            actions={[{ label: 'Option 1', value: '1'}, { label: 'Option 2', value: '2' }]} width="100%" />
+                                        <BL.Dropdown 
+                                            title="Test" 
+                                            disabled
+                                            actions={[{ label: 'Option 1', value: '1'}, { label: 'Option 2', value: '2' }]} width="100%" />
+                                    </div>
                                 }
                             />
                         </td>
@@ -251,6 +257,8 @@ const Demo = () => {
                                     <div>
                                         <BL.CheckBox title="Test" />
                                         <BL.CheckBox value={true} title="Test 2" />
+                                        <BL.CheckBox value={true} disabled title="Test 2" />
+                                        <BL.CheckBox title="Test" disabled />
                                     </div>
                                 }
                             />
