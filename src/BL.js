@@ -10,6 +10,7 @@ import TextInput from './components/TextInput';
 import Dropdown from './components/Dropdown';
 import Button from './components/Button';
 import DataList from './components/DataList';
+import CheckBox from './components/CheckBox';
 
 const BL = {
     // utils
@@ -20,6 +21,7 @@ const BL = {
     TextArea,
     TextInput,
     Dropdown,
+    CheckBox,
     Button,
     DataList
 };

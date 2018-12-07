@@ -243,6 +243,20 @@ const Demo = () => {
                                         />
                                 }
                             />
+                             <DemoView 
+                                title="CheckBox"
+                                propObject={{
+                                }}
+                                example={
+                                    <div>
+                                        <BL.CheckBox title="Test" />
+                                        <BL.CheckBox value={true} title="Test 2" />
+                                    </div>
+                                }
+                            />
+                    </td>
+                    <td style={{verticalAlign: 'top'}}>
+                           
                     </td>
                 </tr>
             </table>
