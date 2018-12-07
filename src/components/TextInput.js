@@ -220,6 +220,10 @@ class TextInput extends Component {
     }
 
     _removeValueFromIndex(index) {
+        let { disabled = false } = this.props;
+
+        if (disabled) return;
+        
         let newValues = [...this.state.values];
         newValues.splice(index, 1);
 
