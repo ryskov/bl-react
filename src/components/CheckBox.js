@@ -18,8 +18,8 @@ export default class CheckBox extends Component {
         return this.refs.checkBox.focus();
     }
 
-    _onSelect() {
-        this.props.onSelect && this.props.onSelect(this.refs.checkBox.value);
+    _onChange() {
+        this.props._onChange && this.props._onChange(this.refs.checkBox.value);
     }
 
     _renderCheckBox() {
@@ -65,7 +65,7 @@ export default class CheckBox extends Component {
                 ref="checkBox"
                 className={`bl-checkbox ${tClass}`}
                 checked={value}
-                onChange={this._onSelect.bind(this)} />
+                onChange={this._onChange.bind(this)} />
         );
     }
 
