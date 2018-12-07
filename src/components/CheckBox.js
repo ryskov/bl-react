@@ -65,7 +65,7 @@ export default class CheckBox extends Component {
                 ref="checkBox"
                 className={`bl-checkbox ${tClass}`}
                 checked={value}
-                onChange={this._onChange.bind(this)} />
+                onClick={this._onChange.bind(this)} />
         );
     }
 
