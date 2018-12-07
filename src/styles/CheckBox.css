@@ -36,7 +36,7 @@
 .bl-checkbox-title {
     margin-bottom: 5px;
     color: #aaa;
-    text-align: left;
+    /* text-align: left; */
     font-variant: all-small-caps;
     letter-spacing: 1px;
   }

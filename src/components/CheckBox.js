@@ -72,12 +72,13 @@ export default class CheckBox extends Component {
     render() {
         const 
         {
-            title
+            title,
+            align
         } = this.props;
 
         if (title) {
             return (
-                <div>
+                <div style={{textAlign: align}}>
                     <div className="bl-checkbox-title">{title}</div>
                     {this._renderCheckBox()}
                 </div>
