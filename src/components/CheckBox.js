@@ -19,7 +19,7 @@ export default class CheckBox extends Component {
     }
 
     _onChange() {
-        this.props._onChange && this.props._onChange(this.refs.checkBox.value);
+        this.props.onChange && this.props.onChange(this.refs.checkBox.value);
     }
 
     _renderCheckBox() {
@@ -65,7 +65,7 @@ export default class CheckBox extends Component {
                 ref="checkBox"
                 className={`bl-checkbox ${tClass}`}
                 checked={value}
-                onClick={this._onChange.bind(this)} />
+                onChange={this._onChange.bind(this)} />
         );
     }
 
